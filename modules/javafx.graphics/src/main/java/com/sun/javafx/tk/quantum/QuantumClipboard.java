@@ -698,7 +698,8 @@ final class QuantumClipboard implements TKClipboard {
     }
 
     private void clearDragView() {
-        dragImage = null;
-        dragOffsetX = dragOffsetY = 0;
+        System.out.println("no clearDragView!");
+        //  dragImage = null;
+        //  dragOffsetX = dragOffsetY = 0;
     }
 }
