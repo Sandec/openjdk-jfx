@@ -504,12 +504,15 @@ public abstract class Application {
     static Object enterNestedEventLoop() {
         checkEventThread();
 
-        nestedEventLoopCounter++;
-        try {
-            return GetApplication()._enterNestedEventLoop();
-        } finally {
-            nestedEventLoopCounter--;
-        }
+        System.out.println("In JPro we don't support nested event loops");
+        throw new RuntimeException("In JPro we don't support nested event loops");
+
+        //nestedEventLoopCounter++;
+        //try {
+        //    return GetApplication()._enterNestedEventLoop();
+        //} finally {
+        //    nestedEventLoopCounter--;
+        //}
     }
 
     /**
@@ -531,11 +534,16 @@ public abstract class Application {
     static void leaveNestedEventLoop(Object retValue) {
         checkEventThread();
 
+        System.out.println("In JPro we don't support nested event loops");
+        throw new RuntimeException("In JPro we don't support nested event loops");
+
+        /*
         if (nestedEventLoopCounter == 0) {
             throw new IllegalStateException("Not in a nested event loop");
         }
 
         GetApplication()._leaveNestedEventLoop(retValue);
+        */
     }
 
     public static boolean isNestedLoopRunning() {
