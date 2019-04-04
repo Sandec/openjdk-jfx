@@ -58,6 +58,16 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.Future
 
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
+    }
+}
+
 /******************************************************************************
  *                              Utility methods                               *
  *****************************************************************************/
@@ -373,7 +383,7 @@ ext.IS_COMPILE_WEBKIT = Boolean.parseBoolean(COMPILE_WEBKIT)
 
 // COMPILE_MEDIA specifies whether to build all of media.
 defineProperty("COMPILE_MEDIA", "false")
-ext.IS_COMPILE_MEDIA = Boolean.parseBoolean(COMPILE_MEDIA)
+ext.IS_COMPILE_MEDIA = true //Boolean.parseBoolean(COMPILE_MEDIA)
 
 // BUILD_LIBAV_STUBS specifies whether to download and build libav/ffmpeg libraries
 defineProperty("BUILD_LIBAV_STUBS", "false")
@@ -546,12 +556,15 @@ def buildTimestamp = new java.text.SimpleDateFormat("yyyy-MM-dd-HHmmss").format(
 defineProperty("BUILD_TIMESTAMP", buildTimestamp)
 def relSuffix = ""
 def relOpt = ""
+/*
 if (HUDSON_JOB_NAME == "not_hudson") {
     relSuffix = "-internal"
     relOpt = "-${buildTimestamp}"
 } else {
-    relSuffix = IS_MILESTONE_FCS ? "" : jfxReleaseSuffix
-}
+
+}*/
+relSuffix = IS_MILESTONE_FCS ? "" : jfxReleaseSuffix
+
 defineProperty("RELEASE_SUFFIX", relSuffix)
 defineProperty("RELEASE_VERSION_SHORT", "${RELEASE_VERSION}${RELEASE_SUFFIX}")
 defineProperty("RELEASE_VERSION_LONG", "${RELEASE_VERSION_SHORT}+${PROMOTED_BUILD_NUMBER}${relOpt}")
@@ -1535,6 +1548,7 @@ void addJSL(Project project, String name, String pkg, List<String> addExports, C
 
 void addMavenPublication(Project project, List<String> projectDependencies) {
     project.apply plugin: 'maven-publish'
+    project.apply plugin: 'com.jfrog.bintray'
 
     project.group = MAVEN_GROUP_ID
     project.version = MAVEN_VERSION
@@ -1617,6 +1631,25 @@ void addMavenPublication(Project project, List<String> projectDependencies) {
                 }
             }
 
+        }
+    }
+
+    project.bintray {
+        if(project.hasProperty("BINTRAY_USER")) {
+            user = BINTRAY_USER
+            key  = BINTRAY_KEY
+        }
+        if (project.name == 'base') {
+            publications = ['javafx']
+        } else {
+            publications = ['maven']
+        }
+        publish = true
+        override = true
+        pkg {
+            repo = 'test'
+            name = "javafx-${project.name}"
+            userOrg = 'sandec'
         }
     }
 }
