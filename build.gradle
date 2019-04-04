@@ -1205,7 +1205,9 @@ compileTargets { t ->
     if (!targetProperties.containsKey('includeSWT')) targetProperties.includeSWT = true
     if (!targetProperties.containsKey('includeSwing')) targetProperties.includeSwing = true
     if (!targetProperties.containsKey('includeNull3d')) targetProperties.includeNull3d = true
-    if (!targetProperties.containsKey('includeMonocle')) targetProperties.includeMonocle = false
+    //if (!targetProperties.containsKey('includeMonocle')) targetProperties.includeMonocle = false
+    // JPro, let's always include monocle
+    targetProperties.includeMonocle = true
     if (!targetProperties.containsKey('includeEGL')) targetProperties.includeEGL = false
 
     if (!targetProperties.containsKey('includeGTK')) targetProperties.includeGTK = IS_LINUX
@@ -1640,7 +1642,7 @@ void addMavenPublication(Project project, List<String> projectDependencies) {
             key  = BINTRAY_KEY
         }
         if (project.name == 'base') {
-            publications = ['javafx']
+            publications = ['javafx','maven']
         } else {
             publications = ['maven']
         }
