@@ -50,7 +50,9 @@ final class MonocleDnDClipboard extends SystemClipboard {
      */
     @Override
     protected  void pushToSystem(HashMap<String, Object> cacheData, int supportedActions) {
-        MouseInput.getInstance().notifyDragStart();
+        // wrong board?
+        // needs to by my moutInput?
+        //MouseInput.getInstance().notifyDragStart(); // removed, because we don't wan't to use the default MouseInput
         System.out.println("Skipped enterDnDEventLoop2");
         // Just skip it? ((MonocleApplication) Application.GetApplication()).enterDnDEventLoop();
         // actionPerformed(Clipboard.ACTION_COPY_OR_MOVE);

@@ -140,17 +140,17 @@ public final class MonocleApplication extends Application {
 
     @Override
     protected Object _enterNestedEventLoop() {
-        System.out.println("In JPro we don't support nested event loops");
-        throw new RuntimeException("In JPro we don't support nested event loops");
-        //return runnableProcessor.enterNestedEventLoop();
+        //System.out.println("In JPro we don't support nested event loops");
+        //throw new RuntimeException("In JPro we don't support nested event loops");
+        return runnableProcessor.enterNestedEventLoop();
     }
 
     @Override
     protected void _leaveNestedEventLoop(Object retValue) {
-        System.out.println("In JPro we don't support nested event loops");
-        throw new RuntimeException("In JPro we don't support nested event loops");
+        //System.out.println("In JPro we don't support nested event loops");
+        //throw new RuntimeException("In JPro we don't support nested event loops");
 
-        //runnableProcessor.leaveNestedEventLoop(retValue);
+        runnableProcessor.leaveNestedEventLoop(retValue);
     }
 
     @Override
