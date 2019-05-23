@@ -443,6 +443,10 @@ public class Stage extends Window {
 
         Toolkit.getToolkit().checkFxUserThread();
 
+        System.out.println("In JPro we don't support nested event loops");
+        throw new RuntimeException("In JPro we don't support nested event loops");
+
+        /*
         if (isPrimary()) {
             throw new IllegalStateException("Cannot call this method on primary stage");
         }
@@ -463,6 +467,7 @@ public class Stage extends Window {
         show();
         inNestedEventLoop = true;
         Toolkit.getToolkit().enterNestedEventLoop(this);
+         */
     }
 
     private StageStyle style; // default is set in constructor

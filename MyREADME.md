@@ -12,7 +12,7 @@
 `./gradlew clean sdk bintrayUpload`
 
 4. clear cache (optional) (tested for sbt)
-`find ~/.m2 ~/.ivy2 | grep openjfx | grep jpro | xargs rm -r`
+`find ~/.m2 ~/.ivy2 ~/.gradle | grep openjfx | grep jpro | xargs rm -r`
 
 
 ### jerry picks:
