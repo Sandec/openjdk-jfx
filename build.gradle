@@ -1649,7 +1649,7 @@ void addMavenPublication(Project project, List<String> projectDependencies) {
         publish = true
         override = true
         pkg {
-            repo = 'test'
+            repo = 'repo'
             name = "javafx-${project.name}"
             userOrg = 'sandec'
         }
