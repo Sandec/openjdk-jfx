@@ -138,15 +138,15 @@ public class GrowableDataBuffer {
         retlink.next = cur;
     }
 
-    byte vals[];
-    int writevalpos;     // next vals location to write encoded values
-    int readvalpos;      // next vals location to read encoded values
-    int savevalpos;      // saved valpos for reading data multiple times
+    public byte vals[];
+    public int writevalpos;     // next vals location to write encoded values
+    public int readvalpos;      // next vals location to read encoded values
+    public int savevalpos;      // saved valpos for reading data multiple times
 
-    Object objs[];
-    int writeobjpos;     // next objs location to write data objects
-    int readobjpos;      // next objs location to read data objects
-    int saveobjpos;      // saved objpos for reading objects multiple times
+    public Object objs[];
+    public int writeobjpos;     // next objs location to write data objects
+    public int readobjpos;      // next objs location to read data objects
+    public int saveobjpos;      // saved objpos for reading objects multiple times
 
     private GrowableDataBuffer(int initvalsize, int initobjsize) {
         vals = new byte[initvalsize];
