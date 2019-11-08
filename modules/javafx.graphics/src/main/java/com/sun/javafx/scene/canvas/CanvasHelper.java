@@ -76,9 +76,9 @@ public class CanvasHelper extends NodeHelper {
     }
 
     public static void setCanvasAccessor(final CanvasAccessor newAccessor) {
-        if (canvasAccessor != null) {
-            throw new IllegalStateException();
-        }
+        //if (canvasAccessor != null) {
+        //    throw new IllegalStateException();
+        //}
 
         canvasAccessor = newAccessor;
     }

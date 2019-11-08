@@ -73,28 +73,7 @@ root.getChildren().add(canvas);
  */
 public class Canvas extends Node {
     static {
-        CanvasHelper.setCanvasAccessor(new CanvasHelper.CanvasAccessor() {
-            @Override
-            public NGNode doCreatePeer(Node node) {
-                return ((Canvas) node).doCreatePeer();
-            }
-
-            @Override
-            public void doUpdatePeer(Node node) {
-                ((Canvas) node).doUpdatePeer();
-            }
-
-            @Override
-            public BaseBounds doComputeGeomBounds(Node node,
-                    BaseBounds bounds, BaseTransform tx) {
-                return ((Canvas) node).doComputeGeomBounds(bounds, tx);
-            }
-
-            @Override
-            public boolean doComputeContains(Node node, double localX, double localY) {
-                return ((Canvas) node).doComputeContains(localX, localY);
-            }
-        });
+        CanvasHelper.setCanvasAccessor(new DefaultCanvasAccessor());
     }
     static final int DEFAULT_VAL_BUF_SIZE = 1024;
     static final int DEFAULT_OBJ_BUF_SIZE = 32;
@@ -297,5 +276,30 @@ public class Canvas extends Node {
         bounds = new RectBounds(0f, 0f, (float) getWidth(), (float) getHeight());
         bounds = tx.transform(bounds, bounds);
         return bounds;
+    }
+
+
+
+    public static class DefaultCanvasAccessor implements CanvasHelper.CanvasAccessor {
+        @Override
+        public NGNode doCreatePeer(Node node) {
+            return ((Canvas) node).doCreatePeer();
+        }
+
+        @Override
+        public void doUpdatePeer(Node node) {
+            ((Canvas) node).doUpdatePeer();
+        }
+
+        @Override
+        public BaseBounds doComputeGeomBounds(Node node,
+                BaseBounds bounds, BaseTransform tx) {
+            return ((Canvas) node).doComputeGeomBounds(bounds, tx);
+        }
+
+        @Override
+        public boolean doComputeContains(Node node, double localX, double localY) {
+            return ((Canvas) node).doComputeContains(localX, localY);
+        }
     }
 }
