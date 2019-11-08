@@ -182,7 +182,7 @@ public final class QuantumToolkit extends Toolkit {
                 return result;
             });
 
-    private static boolean renderOnlySnapshots =
+    public static boolean renderOnlySnapshots =
             AccessController.doPrivileged((PrivilegedAction<Boolean>) () -> {
                 Boolean result = Boolean.getBoolean("quantum.renderonlysnapshots");
                 return result;
