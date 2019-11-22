@@ -188,7 +188,7 @@ public final class QuantumToolkit extends Toolkit {
                 return result;
             });
 
-    private static boolean noRenderJobs =
+    public static boolean noRenderJobs =
             AccessController.doPrivileged((PrivilegedAction<Boolean>) () -> {
                 Boolean result = Boolean.getBoolean("quantum.norenderjobs");
                 if (/*verbose &&*/ result) {
