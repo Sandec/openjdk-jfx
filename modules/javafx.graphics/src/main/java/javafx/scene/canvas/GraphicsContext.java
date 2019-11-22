@@ -804,7 +804,6 @@ public final class GraphicsContext {
             // buf.writeValuePosition() > Canvas.DEFAULT_VAL_BUF_SIZE || // THIS IS DARK MAGIC - and should be changed in fx!
             // theCanvas.isRendererFallingBehind())
         {
-            System.out.println("starting reset!");
             buf.reset();
             buf.putByte(NGCanvas.RESET);
             updateDimensions();
@@ -820,7 +819,6 @@ public final class GraphicsContext {
             }
             this.curState.numClipPaths = numClipPaths;
             s.restore(this);
-            System.out.println("finished reset!");
         }
     }
 
