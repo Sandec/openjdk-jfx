@@ -67,7 +67,8 @@ final class MonocleCursor extends Cursor {
     protected long _createCursor(int x, int y, Pixels pixels) {
         hotspotX = x;
         hotspotY = y;
-        image = pixels.asByteBuffer().array();
+        // don't set image because of java.lang.UnsupportedOperationException
+        //image = pixels.asByteBuffer().array();
         return 1l;
     }
 
