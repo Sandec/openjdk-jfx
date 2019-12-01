@@ -1318,7 +1318,7 @@ public class NGCanvas extends NGNode {
                 float dy = buf.getFloat();
                 float dw = buf.getFloat();
                 float dh = buf.getFloat();
-                Image img = (Image) buf.getObject();
+                Image img = (Image) ((javafx.scene.image.Image) buf.getObject()).getPlatformImage();
                 float sx, sy, sw, sh;
                 if (token == DRAW_IMAGE) {
                     sx = sy = 0f;

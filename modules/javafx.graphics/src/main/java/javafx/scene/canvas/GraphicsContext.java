@@ -722,7 +722,7 @@ public final class GraphicsContext {
         updateTransform();
         GrowableDataBuffer buf = getBuffer();
         writeRectParams(buf, dx, dy, dw, dh, NGCanvas.DRAW_IMAGE);
-        buf.putObject(platformImg);
+        buf.putObject(img);
     }
 
     private void writeImage(Image img,

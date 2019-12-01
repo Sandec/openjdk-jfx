@@ -533,7 +533,7 @@ public class Image {
      */
     private ObjectPropertyImpl<PlatformImage> platformImage;
 
-    final Object getPlatformImage() {
+    public final Object getPlatformImage() {
         return platformImage == null ? null : platformImage.get();
     }
 
