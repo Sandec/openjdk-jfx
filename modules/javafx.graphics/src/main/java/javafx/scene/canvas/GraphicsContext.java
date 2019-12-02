@@ -739,7 +739,7 @@ public final class GraphicsContext {
         buf.putFloat((float) sy);
         buf.putFloat((float) sw);
         buf.putFloat((float) sh);
-        buf.putObject(platformImg);
+        buf.putObject(img);
     }
 
     private void writeText(String text, double x, double y, double maxWidth,
