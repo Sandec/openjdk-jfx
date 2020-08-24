@@ -596,6 +596,7 @@ public class Scene implements EventTarget {
 
     private List<Runnable> preLayoutPulseListeners;
     private List<Runnable> postLayoutPulseListeners;
+    private List<Runnable> postPostLayoutPulseListeners;
 
     /**
      * Adds a new scene pre layout pulse listener to this scene. Every time a pulse occurs,
@@ -690,6 +691,18 @@ public class Scene implements EventTarget {
         postLayoutPulseListeners.add(r);
     }
 
+    public final void addPostPostLayoutPulseListener(Runnable r) {
+        Toolkit.getToolkit().checkFxUserThread();
+
+        if (r == null) {
+            throw new NullPointerException("Scene pulse listener should not be null");
+        }
+        if (postPostLayoutPulseListeners == null) {
+            postPostLayoutPulseListeners = new CopyOnWriteArrayList<>();
+        }
+        postPostLayoutPulseListeners.add(r);
+    }
+
     /**
      * Removes a previously registered scene post layout pulse listener from listening to
      * pulses in this scene. This method does nothing if the specified Runnable is
@@ -712,6 +725,14 @@ public class Scene implements EventTarget {
             return;
         }
         postLayoutPulseListeners.remove(r);
+    }
+    public final void removePostPostLayoutPulseListener(Runnable r) {
+        Toolkit.getToolkit().checkFxUserThread();
+
+        if (postPostLayoutPulseListeners == null) {
+            return;
+        }
+        postPostLayoutPulseListeners.remove(r);
     }
 
     /**
@@ -2485,6 +2506,11 @@ public class Scene implements EventTarget {
             // and before scene synchronization
             if (postLayoutPulseListeners != null) {
                 for (Runnable r : postLayoutPulseListeners) {
+                    r.run();
+                }
+            }
+            if (postPostLayoutPulseListeners != null) {
+                for (Runnable r : postPostLayoutPulseListeners) {
                     r.run();
                 }
             }
