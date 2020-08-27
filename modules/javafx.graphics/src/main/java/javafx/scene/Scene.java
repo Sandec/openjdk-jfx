@@ -596,7 +596,7 @@ public class Scene implements EventTarget {
 
     private List<Runnable> preLayoutPulseListeners;
     private List<Runnable> postLayoutPulseListeners;
-    private List<Runnable> postPostLayoutPulseListeners;
+    private List<Runnable> preRenderPulseListeners;
 
     /**
      * Adds a new scene pre layout pulse listener to this scene. Every time a pulse occurs,
@@ -691,16 +691,16 @@ public class Scene implements EventTarget {
         postLayoutPulseListeners.add(r);
     }
 
-    public final void addPostPostLayoutPulseListener(Runnable r) {
+    public final void addPreRenderPulseListener(Runnable r) {
         Toolkit.getToolkit().checkFxUserThread();
 
         if (r == null) {
             throw new NullPointerException("Scene pulse listener should not be null");
         }
-        if (postPostLayoutPulseListeners == null) {
-            postPostLayoutPulseListeners = new CopyOnWriteArrayList<>();
+        if (preRenderPulseListeners == null) {
+            preRenderPulseListeners = new CopyOnWriteArrayList<>();
         }
-        postPostLayoutPulseListeners.add(r);
+        preRenderPulseListeners.add(r);
     }
 
     /**
@@ -726,13 +726,13 @@ public class Scene implements EventTarget {
         }
         postLayoutPulseListeners.remove(r);
     }
-    public final void removePostPostLayoutPulseListener(Runnable r) {
+    public final void removePreRenderPulseListener(Runnable r) {
         Toolkit.getToolkit().checkFxUserThread();
 
-        if (postPostLayoutPulseListeners == null) {
+        if (preRenderPulseListeners == null) {
             return;
         }
-        postPostLayoutPulseListeners.remove(r);
+        preRenderPulseListeners.remove(r);
     }
 
     /**
@@ -2509,11 +2509,6 @@ public class Scene implements EventTarget {
                     r.run();
                 }
             }
-            if (postPostLayoutPulseListeners != null) {
-                for (Runnable r : postPostLayoutPulseListeners) {
-                    r.run();
-                }
-            }
 
             boolean dirty = dirtyNodes == null || dirtyNodesSize != 0 || !isDirtyEmpty();
             if (dirty) {
@@ -2558,6 +2553,12 @@ public class Scene implements EventTarget {
 
             // required for image cursor created from animated image
             Scene.this.mouseHandler.updateCursorFrame();
+
+            if (preRenderPulseListeners != null) {
+                for (Runnable r : preRenderPulseListeners) {
+                    r.run();
+                }
+            }
 
             if (firstPulse) {
                 if (PerformanceTracker.isLoggingEnabled()) {
