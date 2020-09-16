@@ -99,7 +99,7 @@ public class NGCanvas extends NGNode {
     public static final byte DASH_OFFSET   = ATTR_BASE + 18;
     public static final byte FONT_SMOOTH   = ATTR_BASE + 19;
 
-    public static final byte                     OP_BASE = 20;
+    public static final byte                     OP_BASE = 25;
     public static final byte FILL_RECT         = OP_BASE + 0;
     public static final byte STROKE_RECT       = OP_BASE + 1;
     public static final byte CLEAR_RECT        = OP_BASE + 2;
