@@ -116,6 +116,11 @@ final class CursorUtils {
 
     private static Cursor createPlatformImageCursor(
             final ImageCursorFrame imageCursorFrame) {
+        if(((com.sun.prism.Image) imageCursorFrame.getPlatformImage()).getPixelBuffer() == null) {
+            // This is a workaround for JPro. It might also be a bug with Monocle.
+            Application app = Application.GetApplication();
+            return app.createCursor(Cursor.CURSOR_DEFAULT);
+        }
         return createPlatformImageCursor(
                        imageCursorFrame.getPlatformImage(),
                        (float) imageCursorFrame.getHotspotX(),
