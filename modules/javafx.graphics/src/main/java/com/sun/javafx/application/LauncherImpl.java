@@ -655,7 +655,7 @@ public class LauncherImpl {
         final CountDownLatch startupLatch = new CountDownLatch(1);
 
         // Note, this method is called on the FX Application Thread
-        PlatformImpl.startup(() -> startupLatch.countDown());
+        PlatformImpl.startup(() -> startupLatch.countDown(), true);
 
         // Wait for FX platform to start
         startupLatch.await();
